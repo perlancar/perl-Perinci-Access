@@ -195,6 +195,10 @@ result.
 
 =head1 SEE ALSO
 
-L<Perinci>, L<Riap>
+L<Perinci::Access::InProcess>
+
+L<Perinci::Access::HTTP::Client>
+
+L<Perinci::Access::Simple::Client>
 
 =cut
