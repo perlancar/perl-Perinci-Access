@@ -88,13 +88,13 @@ sub request {
         }
     }
 
-    if ($Log_Requests && $log->is_trace) {
+    if ($Log_Request && $log->is_trace) {
         $log->tracef(
             "Riap request (%s): %s -> %s (%s)",
             ref($self->{_handler_objs}{$sch}), $action, "$uri", $extra);
     }
     my $res = $self->{_handler_objs}{$sch}->request($action, $uri, $extra);
-    if ($Log_Responses && $log->is_trace) {
+    if ($Log_Response && $log->is_trace) {
         $log->tracef("Riap response: %s", $res);
     }
     $res;
