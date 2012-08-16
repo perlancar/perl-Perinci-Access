@@ -8,8 +8,8 @@ use Log::Any '$log';
 use Scalar::Util qw(blessed);
 use URI;
 
-our $Log_Requests  = $ENV{LOG_RIAP_REQUESTS}  // 0;
-our $Log_Responses = $ENV{LOG_RIAP_RESPONSES} // 0;
+our $Log_Request  = $ENV{LOG_RIAP_REQUEST}  // 0;
+our $Log_Response = $ENV{LOG_RIAP_RESPONSE} // 0;
 
 # VERSION
 
@@ -147,15 +147,15 @@ the B<handlers> attribute (see its documentation for more details).
 
 =head1 VARIABLES
 
-=head2 $Log_Requests (BOOL)
+=head2 $Log_Request (BOOL)
 
 Whether to log every Riap request. Default is from environment variable
-LOG_RIAP_REQUESTS, or false. Logging is done with L<Log::Any> at trace level.
+LOG_RIAP_REQUEST, or false. Logging is done with L<Log::Any> at trace level.
 
-=head2 $Log_Responses (BOOL)
+=head2 $Log_Response (BOOL)
 
 Whether to log every Riap response. Default is from environment variable
-LOG_RIAP_RESPONSES, or false. Logging is done with L<Log::Any> at trace level.
+LOG_RIAP_RESPONSE, or false. Logging is done with L<Log::Any> at trace level.
 
 
 =head1 METHODS
@@ -191,6 +191,13 @@ special options when instantiating the class.
 Send Riap request to Riap server. Pass the request to the appropriate Riap
 client (as configured in C<handlers> constructor options). RESP is the enveloped
 result.
+
+
+=head1 ENVIRONMENT
+
+LOG_RIAP_REQUEST
+
+LOG_RIAP_RESPONSE
 
 
 =head1 SEE ALSO
