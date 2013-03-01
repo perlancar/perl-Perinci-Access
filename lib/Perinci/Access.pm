@@ -59,7 +59,7 @@ sub _normalize_uri {
 }
 
 sub request {
-    my ($self, $action, $uri, $extra) = @_;
+    my ($self, $action, $uri, $extra, $copts) = @_;
 
     $uri = $self->_normalize_uri($uri);
     my $sch = $uri->scheme;
@@ -91,9 +91,9 @@ sub request {
     if ($Log_Request && $log->is_trace) {
         $log->tracef(
             "Riap request (%s): %s -> %s (%s)",
-            ref($self->{_handler_objs}{$sch}), $action, "$uri", $extra);
+            ref($self->{_handler_objs}{$sch}), $action, "$uri", $extra, $copts);
     }
-    my $res = $self->{_handler_objs}{$sch}->request($action, $uri, $extra);
+    my $res = $self->{_handler_objs}{$sch}->request($action,$uri,$extra,$copts);
     if ($Log_Response && $log->is_trace) {
         $log->tracef("Riap response: %s", $res);
     }
@@ -186,11 +186,20 @@ special options when instantiating the class.
 
 =back
 
-=head2 $pa->request($action, $server_url, \%extra) -> RESP
+=head2 $pa->request($action, $server_url, \%extra, \%copts) -> RESP
 
 Send Riap request to Riap server. Pass the request to the appropriate Riap
 client (as configured in C<handlers> constructor options). RESP is the enveloped
 result.
+
+C<%extra> is optional, containing Riap request keys (the C<action> request key
+ is taken from C<$action>).
+
+C<%copts> is optional, containing Riap-client-specific options. For example, to
+pass HTTP credentials to C<Perinci::Access::HTTP::Client>, you can do:
+
+ $pa->request(call => 'http://example.com/Foo/bar', {args=>{a=>1}},
+              {user=>'admin', password=>'secret'});
 
 
 =head1 ENVIRONMENT
