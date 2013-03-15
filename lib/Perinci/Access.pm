@@ -84,7 +84,9 @@ sub request {
             my $modp = $self->{handlers}{$sch};
             $modp =~ s!::!/!g; $modp .= ".pm";
             require $modp;
-            $self->{_handler_objs}{$sch} = $self->{handlers}{$sch}->new;
+            $log->tracef("TMP: Creating Riap client object for schema %s with args %s", $sch, $self->{handler_args});
+            $self->{_handler_objs}{$sch} = $self->{handlers}{$sch}->new(
+                %{ $self->{handler_args} // {}});
         }
     }
 
@@ -166,7 +168,7 @@ Create new instance. Known options:
 
 =over 4
 
-=item * handlers (HASH)
+=item * handlers => HASH
 
 A mapping of scheme names and class names or objects. If values are class names,
 they will be require'd and instantiated. The default is:
@@ -183,6 +185,10 @@ they will be require'd and instantiated. The default is:
 
 Objects can be given instead of class names. This is used if you need to pass
 special options when instantiating the class.
+
+=item * handler_args => HASH
+
+Arguments to pass to handler objects' constructors.
 
 =back
 
