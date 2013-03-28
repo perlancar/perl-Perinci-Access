@@ -134,14 +134,16 @@ sub request {
 This module provides a convenient wrapper to select appropriate Riap client
 (Perinci::Access::*) objects based on URI scheme (or lack thereof).
 
- riap://perl/Foo/Bar/  -> InProcess
- /Foo/Bar/             -> InProcess
- pl:/Foo/Bar           -> InProcess
- http://...            -> HTTP::Client
- https://...           -> HTTP::Client
- riap+tcp://...        -> Simple::Client
- riap+unix://...       -> Simple::Client
- riap+pipe://...       -> Simple::Client
+ riap://perl/Foo/Bar/  -> Perinci::Access::InProcess
+ /Foo/Bar/             -> Perinci::Access::InProcess
+ pl:/Foo/Bar           -> Perinci::Access::InProcess
+ http://...            -> Perinci::Access::HTTP::Client
+ https://...           -> Perinci::Access::HTTP::Client
+ riap+tcp://...        -> Perinci::Access::Simple::Client
+ riap+unix://...       -> Perinci::Access::Simple::Client
+ riap+pipe://...       -> Perinci::Access::Simple::Client
+
+For more details on each scheme, please consult the appropriate module.
 
 You can customize or add supported schemes by providing class name or object to
 the B<handlers> attribute (see its documentation for more details).
