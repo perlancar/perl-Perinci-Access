@@ -84,7 +84,7 @@ sub request {
             my $modp = $self->{handlers}{$sch};
             $modp =~ s!::!/!g; $modp .= ".pm";
             require $modp;
-            $log->tracef("TMP: Creating Riap client object for schema %s with args %s", $sch, $self->{handler_args});
+            #$log->tracef("TMP: Creating Riap client object for schema %s with args %s", $sch, $self->{handler_args});
             $self->{_handler_objs}{$sch} = $self->{handlers}{$sch}->new(
                 %{ $self->{handler_args} // {}});
         }
