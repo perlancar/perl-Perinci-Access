@@ -1,0 +1,120 @@
+#!/usr/bin/perl
+
+use 5.010;
+use strict;
+use warnings;
+
+# VERSION
+
+# we do this because we can't state Perinci::CmdLine as prerequisite, circular
+eval { require Perinci::CmdLine };
+if ($@) {
+    die "This script requires Perinci::CmdLine, please install it first.\n";
+}
+
+our %SPEC;
+
+$SPEC{request_riap} = {
+    v => 1.1,
+    summary => 'Command-line Riap client',
+    args => {
+        action => {
+            summary => 'Riap action, e.g. call, meta, info',
+            description => <<'_',
+
+This is the first argument for Perinci::Access->request().
+
+_
+            schema => 'str*',
+            req => 1,
+            pos => 0,
+        },
+        url => {
+            summary => 'Riap URL e.g. /Some/Module/ or http://example.org/api/',
+            description => <<'_',
+
+This is the second argument for Perinci::Access->request().
+
+_
+            schema => 'str*',
+            req => 1,
+            pos => 1,
+        },
+        extra => {
+            summary => 'Additional Riap request keys',
+            description => <<'_',
+
+This is the third argument for Perinci::Access->request().
+
+_
+            schema => 'hash*',
+        },
+        copts => {
+            summary => 'Options for Perinci::Access clients',
+            description => <<'_',
+
+This is the fourth argument for Perinci::Access->request().
+
+_
+            schema => 'hash*',
+        },
+        args => {
+            summary => "Specify Riap request key 'args'",
+            description => <<'_',
+
+Can also be specified through declaring `args` key in `extras` hash.
+
+_
+            schema => 'hash*',
+        },
+    },
+};
+sub request_riap {
+    my %args = @_;
+    # XXX schema
+    my $action = $args{action} or return [400, "Please specify action"];
+    my $url    = $args{url}    or return [400, "Please specify url"];
+
+    my $pa = Perinci::Access->new;
+    my $extra = {};
+
+    if ($args{extra}) {
+        for (keys %{$args{extra}}) {
+            $extra->{$_} = $args{extra}{$_};
+        }
+    }
+    if ($args{args}) {
+        $extra->{args} //= {};
+        for (keys %{ $args{args} }) {
+            $extra->{args}{$_} = $args{args}{$_};
+        }
+    }
+
+    my $copts = $args{copts} // {};
+
+    $pa->request($action => $url, $extra, $copts);
+}
+
+$ENV{LOG} //= 0; # speed up startup, but allow overriding
+my $cmd = Perinci::CmdLine->new(
+    url => '/main/request_riap',
+);
+$cmd->run;
+
+1;
+# ABSTRACT: Command-line Riap client
+# PODNAME: peri-access
+
+=head1 SYNOPSIS
+
+From command-line:
+
+ % peri-access meta /Some/Module/
+ % peri-access call /Some/Module/func --args '{"foo": "bar", "baz": 2}'
+
+
+=head1 DESCRIPTION
+
+This script is a command-line interface for L<Perinci::Access>.
+
+=cut
