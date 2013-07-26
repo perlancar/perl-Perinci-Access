@@ -74,6 +74,7 @@ sub request_riap {
     # XXX schema
     my $action = $args{action} or return [400, "Please specify action"];
     my $url    = $args{url}    or return [400, "Please specify url"];
+    $action =~ /\A\w+\z/ or return [400, "Invalid syntax for action, please use letters/numbers only"];
 
     my $pa = Perinci::Access->new;
     my $extra = {};
