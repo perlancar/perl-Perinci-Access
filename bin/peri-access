@@ -67,6 +67,13 @@ Can also be specified through declaring `args` key in `extras` hash.
 _
             schema => 'hash*',
         },
+        detail => {
+            summary => "Set detail=>1 in Riap request key 'arg'",
+            description => <<'_',
+
+_
+            schema => 'bool',
+        },
     },
 };
 sub request_riap {
@@ -82,6 +89,10 @@ sub request_riap {
         for (keys %{$args{extra}}) {
             $extra->{$_} = $args{extra}{$_};
         }
+    }
+    if ($args{detail}) {
+        $extra->{args} //= {};
+        $extra->{args}{detail} = 1;
     }
     if ($args{args}) {
         $extra->{args} //= {};
