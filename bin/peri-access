@@ -62,14 +62,16 @@ _
             summary => "Specify Riap request key 'args'",
             description => <<'_',
 
-Can also be specified through declaring `args` key in `extras` hash.
+Can also be specified through declaring `args` key in `extra` hash.
 
 _
             schema => 'hash*',
         },
         detail => {
-            summary => "Set detail=>1 in Riap request key 'arg'",
+            summary => "Set Riap request key 'detail' => 1",
             description => <<'_',
+
+Can also be specified through declaring `detail` key in `extra` hash.
 
 _
             schema => 'bool',
@@ -91,8 +93,7 @@ sub request_riap {
         }
     }
     if ($args{detail}) {
-        $extra->{args} //= {};
-        $extra->{args}{detail} = 1;
+        $extra->{detail} //= 1;
     }
     if ($args{args}) {
         $extra->{args} //= {};
