@@ -38,7 +38,7 @@ sub _request_or_parse_url {
     if ($which eq 'request') {
         ($action, $uri, $extra, $copts) = @_;
     } else {
-        ($uri) = @_;
+        ($uri, $copts) = @_;
     }
 
     my ($sch, $auth, $path, $query, $frag) = uri_split($uri);
