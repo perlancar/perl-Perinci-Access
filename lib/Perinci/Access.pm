@@ -1,5 +1,8 @@
 package Perinci::Access;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
@@ -10,8 +13,6 @@ use URI::Split qw(uri_split uri_join);
 
 our $Log_Request  = $ENV{LOG_RIAP_REQUEST}  // 0;
 our $Log_Response = $ENV{LOG_RIAP_RESPONSE} // 0;
-
-# VERSION
 
 sub new {
     my ($class, %opts) = @_;
@@ -81,7 +82,7 @@ sub _request_or_parse_url {
             $log->tracef("Riap response: %s", $res);
         }
     } else {
-        $res = $self->{_handler_objs}{$sch}->parse_url($uri);
+        $res = $self->{_handler_objs}{$sch}->parse_url($uri, $copts);
     }
     $res;
 }
@@ -198,23 +199,24 @@ Arguments to pass to handler objects' constructors.
 
 =back
 
-=head2 $pa->request($action, $server_url, \%extra, \%copts) -> RESP
+=head2 $pa->request($action, $server_url[, \%extra_keys[, \%client_opts]]) -> RESP
 
 Send Riap request to Riap server. Pass the request to the appropriate Riap
 client (as configured in C<handlers> constructor options). RESP is the enveloped
 result.
 
-C<%extra> is optional, containing Riap request keys (the C<action> request key
- is taken from C<$action>).
+C<%extra_keys> is optional, containing Riap request keys (the C<action> request
+ key is taken from C<$action>).
 
-C<%copts> is optional, containing Riap-client-specific options. For example, to
-pass HTTP credentials to C<Perinci::Access::HTTP::Client>, you can do:
+C<%client_opts> is optional, containing Riap-client-specific options. For
+example, to pass HTTP credentials to C<Perinci::Access::HTTP::Client>, you can
+do:
 
  $pa->request(call => 'http://example.com/Foo/bar', {args=>{a=>1}},
               {user=>'admin', password=>'secret'});
 
 
-=head2 $pa->parse_url($server_url) => HASH
+=head2 $pa->parse_url($server_url[, \%client_opts]) => HASH
 
 Parse C<$server_url> into its components. Will be done by respective subclasses.
 Die on failure (e.g. invalid URL). Return a hash on success, containing at least
