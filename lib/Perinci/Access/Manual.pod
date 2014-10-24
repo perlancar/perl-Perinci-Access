@@ -1,0 +1,43 @@
+package Perinci::Access::Manual; # just to make podweaver happy
+
+# DATE
+# VERSION
+
+1;
+# ABSTRACT: Perinci::Access manual
+
+=head1 DESCRIPTION
+
+Perinci::Access (P::A for short) is family of L<Riap> client/server libraries.
+It allows you to access code entities and its L<Rinci> metadata from Perl.
+
+
+=head1 MODULE ORGANIZATION
+
+L<Perinci::Access> is a front-end interface for all of the
+L<Perinci::Access::Base>-based (regular) Riap clients. Each transport protocol
+will have its own specific backend module, e.g. for accessing in-process/Perl
+modules and functions you have L<Perinci::Access::Perl>, for accessing Riap over
+HTTP you have L<Perinci::Access::HTTP::Client> and so on. When you pass a URL to
+Perinci::Access, it will check its URL scheme and pass to the appropriate
+backend.
+
+L<Perinci::Access::Lite> is the exception from these and is not under the
+Perinci::Access umbrella. It is designed to be lightweight (especially in terms
+of startup overhead), has less features, and used by L<Perinci::CmdLine::Lite>.
+
+
+=head1 CONCEPTS
+
+Please read up on L<Rinci> and L<Riap> first.
+
+
+=head1 SEE ALSO
+
+L<Perinci>
+
+L<Perinci::Access::Manual::Examples>
+
+L<Perinci::Access::Manual::FAQ>
+
+L<App::riap>

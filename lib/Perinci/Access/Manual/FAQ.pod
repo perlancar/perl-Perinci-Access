@@ -1,0 +1,23 @@
+package Perinci::Access::Manual::FAQ; # just to make podweaver happy
+
+# DATE
+# VERSION
+
+1;
+# ABSTRACT: FAQs
+
+=head1 FAQ
+
+=head2 How do I debug my program?
+
+Most P::A libraries use L<Log::Any>, so you can see the logs they produce by any
+Log::Any consumer.
+
+=head2 How about Riap client/server library in other languages?
+
+In PHP, take a look at Phinci.
+
+
+=head1 SEE ALSO
+
+L<Perinci::CmdLine::Manual>
