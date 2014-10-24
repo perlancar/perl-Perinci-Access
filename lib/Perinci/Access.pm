@@ -17,6 +17,7 @@ our $Log_Response = $ENV{LOG_RIAP_RESPONSE} // 0;
 sub new {
     my ($class, %opts) = @_;
 
+    $opts{riap_version}           //= 1.1;
     $opts{handlers}               //= {};
     $opts{handlers}{''}           //= 'Perinci::Access::Schemeless';
     $opts{handlers}{pl}           //= 'Perinci::Access::Perl';
@@ -64,6 +65,7 @@ sub _request_or_parse_url {
             require $modp;
             #$log->tracef("TMP: Creating Riap client object for schema %s with args %s", $sch, $self->{handler_args});
             $self->{_handler_objs}{$sch} = $self->{handlers}{$sch}->new(
+                riap_version => $self->{riap_version},
                 %{ $self->{handler_args} // {}});
         }
     }
