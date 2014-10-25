@@ -74,7 +74,7 @@ involved, you will need to encode the argument:
  use MIME::Base64;
  my $res = Perinci::Access->new(riap_version=>1.2)->
                request(call => "http://localhost:5000/api/MyLib/gzip",
-                       {args=>{"data:base64"=>encode_base64("some data")}});
+                       {args=>{"data:base64"=>encode_base64("some data","")}});
 
 Note that you also need to specify Riap version 1.2, as this is the first
 version that specifies argument encoding. Also note that the result returned by
