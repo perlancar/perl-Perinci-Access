@@ -115,7 +115,7 @@ $cmd->run;
 
 1;
 # ABSTRACT: Command-line Riap client
-# PODNAME: peri-access
+# PODNAME:
 
 =head1 SYNOPSIS
 
