@@ -1,5 +1,12 @@
 Revision history for Perinci-Access
 
+0.40    2015-02-19 (PERLANCAR)
+
+	- No functional changes.
+
+	- Switch to Perinci::CmdLine::Any.
+
+
 0.39    2014-10-24 (PERLANCAR)
 
 	- No functional changes.
