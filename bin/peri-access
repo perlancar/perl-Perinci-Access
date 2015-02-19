@@ -7,10 +7,9 @@ use 5.010;
 use strict;
 use warnings;
 
-# we do this because we can't state Perinci::CmdLine as prerequisite, circular
-eval { require Perinci::CmdLine };
+eval { require Perinci::CmdLine::Any };
 if ($@) {
-    die "This script requires Perinci::CmdLine, please install it first.\n";
+    die "This script requires Perinci::CmdLine::Any, please install it first.\n";
 }
 
 our %SPEC;
@@ -80,6 +79,8 @@ _
     },
 };
 sub request_riap {
+    require Perinci::Access;
+
     my %args = @_;
     # XXX schema
     my $action = $args{action} or return [400, "Please specify action"];
@@ -109,7 +110,7 @@ sub request_riap {
 }
 
 $ENV{LOG} //= 0; # speed up startup, but allow overriding
-my $cmd = Perinci::CmdLine->new(
+my $cmd = Perinci::CmdLine::Any->new(
     url => '/main/request_riap',
 );
 $cmd->run;
