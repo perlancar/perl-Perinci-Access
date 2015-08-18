@@ -1,5 +1,12 @@
 Revision history for Perinci-Access
 
+0.42    2015-08-18 (PERLANCAR)
+
+	- No functional changes.
+
+	- Switch from Log::Any to Log::Any::IfLOG.
+
+
 0.41    2015-04-12 (PERLANCAR)
 
 	- Split peri-access CLI script to App-PerinciUtils.
