@@ -6,7 +6,7 @@ package Perinci::Access;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 use Scalar::Util qw(blessed);
 use URI::Split qw(uri_split uri_join);
@@ -73,7 +73,7 @@ sub _request_or_parse_url {
     my $res;
     if ($which eq 'request') {
         if ($Log_Request && $log->is_trace) {
-            $log->tracef(
+            log_trace(
                 "Riap request (%s): %s -> %s (%s)",
                 ref($self->{_handler_objs}{$sch}),
                 $action, $uri, $extra, $copts);
@@ -81,7 +81,7 @@ sub _request_or_parse_url {
         $res = $self->{_handler_objs}{$sch}->request(
             $action, $uri, $extra, $copts);
         if ($Log_Response && $log->is_trace) {
-            $log->tracef("Riap response: %s", $res);
+            log_trace("Riap response: %s", $res);
         }
     } else {
         $res = $self->{_handler_objs}{$sch}->parse_url($uri, $copts);
