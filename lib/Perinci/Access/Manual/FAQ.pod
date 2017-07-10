@@ -10,8 +10,8 @@ package Perinci::Access::Manual::FAQ; # just to make podweaver happy
 
 =head2 How do I debug my program?
 
-Most P::A libraries use L<Log::Any>, so you can see the logs they produce by any
-Log::Any consumer.
+Most P::A libraries use L<Log::ger>, so you can see the logs they produce by any
+Log::ger output.
 
 =head2 How about Riap client/server library in other languages?
 

@@ -72,7 +72,7 @@ sub _request_or_parse_url {
 
     my $res;
     if ($which eq 'request') {
-        if ($Log_Request && $log->is_trace) {
+        if ($Log_Request && log_is_trace()) {
             log_trace(
                 "Riap request (%s): %s -> %s (%s)",
                 ref($self->{_handler_objs}{$sch}),
@@ -80,7 +80,7 @@ sub _request_or_parse_url {
         }
         $res = $self->{_handler_objs}{$sch}->request(
             $action, $uri, $extra, $copts);
-        if ($Log_Response && $log->is_trace) {
+        if ($Log_Response && log_is_trace()) {
             log_trace("Riap response: %s", $res);
         }
     } else {
@@ -161,12 +161,12 @@ the B<handlers> attribute (see its documentation for more details).
 =head2 $Log_Request (BOOL)
 
 Whether to log every Riap request. Default is from environment variable
-LOG_RIAP_REQUEST, or false. Logging is done with L<Log::Any> at trace level.
+LOG_RIAP_REQUEST, or false. Logging is done with L<Log::ger> at trace level.
 
 =head2 $Log_Response (BOOL)
 
 Whether to log every Riap response. Default is from environment variable
-LOG_RIAP_RESPONSE, or false. Logging is done with L<Log::Any> at trace level.
+LOG_RIAP_RESPONSE, or false. Logging is done with L<Log::ger> at trace level.
 
 
 =head1 METHODS
